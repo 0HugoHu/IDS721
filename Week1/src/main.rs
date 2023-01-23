@@ -60,7 +60,7 @@ async fn run(info: web::Path<String>) -> impl Responder {
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| App::new().service(index).service(run))
-        .bind(("127.0.0.1", 8081))?
+        .bind(("127.0.0.1", 8088))?
         .run()
         .await
 }
