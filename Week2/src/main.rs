@@ -15,15 +15,23 @@ struct Response {
 async fn function_handler(event: LambdaEvent<Request>) -> Result<Response, Error> {
     // Extract some useful info from the request
     let name = event.payload.name;
-    let logic = match name.as_str() {
-        "Marco" => "Polo",
-        _ => "Who?",
-    };
+    // get the max frequency character in the string
+    let mut max_freq = 0;
+    let mut max_char = ' ';
+    for c in name.chars() {
+        let freq = name.matches(c).count();
+        if freq > max_freq {
+            max_freq = freq;
+            max_char = c;
+        }
+    }
+    // let logic be the max frequency character + its frequency
+    let logic = format!("{} that appears {} time(s)!", max_char, max_freq);
 
     // Prepare the response
     let resp = Response {
         req_id: event.context.request_id,
-        msg: format!("{} says {}", name, logic),
+        msg: format!("The string:\"{}\" has the highest frequency of {}", name, logic),
     };
 
     // Return `Response` (it will be serialized to JSON automatically by the runtime)
