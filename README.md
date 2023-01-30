@@ -45,4 +45,4 @@ In this Demo, I learned how to use Amazon Lambda to deploy a cloud function. The
 > // Upload this file to your Amazon Lambda
 > 
 
-![](images/demo2.png")
+![](/images/demo2.png")
