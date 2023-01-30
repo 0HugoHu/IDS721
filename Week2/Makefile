@@ -19,6 +19,3 @@ invoke:
   		my-macro-polo-lambda
 
 all: format lint test run
-
-cargo lambda deploy \
-  --iam-role arn:aws:lambda:us-east-1:376636494158:function:my-macro-polo-lambda

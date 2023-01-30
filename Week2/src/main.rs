@@ -16,8 +16,8 @@ async fn function_handler(event: LambdaEvent<Request>) -> Result<Response, Error
     // Extract some useful info from the request
     let name = event.payload.name;
     // get the max frequency character in the string
-    let mut max_freq = 0;
-    let mut max_char = ' ';
+    let mut max_freq = 1;
+    let mut max_char = name.chars().nth(0).unwrap();
     for c in name.chars() {
         let freq = name.matches(c).count();
         if freq > max_freq {
@@ -26,12 +26,15 @@ async fn function_handler(event: LambdaEvent<Request>) -> Result<Response, Error
         }
     }
     // let logic be the max frequency character + its frequency
-    let logic = format!("{} that appears {} time(s)!", max_char, max_freq);
+    let logic = format!("{} that appears {} time(s)!", max_char.to_string(), max_freq);
 
     // Prepare the response
     let resp = Response {
         req_id: event.context.request_id,
-        msg: format!("The string:\"{}\" has the highest frequency of {}", name, logic),
+        msg: format!(
+            "The string:{}, has the highest frequency of {}",
+            name, logic
+        ),
     };
 
     // Return `Response` (it will be serialized to JSON automatically by the runtime)
@@ -50,4 +53,3 @@ async fn main() -> Result<(), Error> {
 
     run(service_fn(function_handler)).await
 }
-
