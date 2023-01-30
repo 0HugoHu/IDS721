@@ -35,8 +35,13 @@ In this Demo, I learned how to use Amazon Lambda to deploy a cloud function. The
 
 ## Usage
 > git clone https://github.com/0HugoHu/IDS721.git
+> 
 > cargo build --release
+> 
 > cp target/lambda/release/marco-polo-lambda ./bootstrap
+> 
 > zip lambda.zip bootstrap
+> 
 > // Upload this file to your Amazon Lambda
+> 
 
