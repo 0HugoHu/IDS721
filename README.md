@@ -6,7 +6,7 @@ In this Demo, user gives a floating number of altitude in meters, the web return
 ## Feature
 - **Use "actix-web" for Http Response**
 - **Deployed on AWS EC2 Cloud Server, and Visitable through Public IPV4 Address**
-- **Written in Rust (which is a barnd-new language for me)**
+- **Written in Rust (which is a brand-new language for me)**
 
 ## Usage
 The format is: http://3.232.64.14/alt/ALTITUDE
