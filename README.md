@@ -47,6 +47,8 @@ In this Demo, I learned how to use Amazon Lambda to deploy a cloud function. The
 
 ![](/images/demo2.png)
 
+
+
 # Individual Project 1 Demo
 ## Introduction
 
@@ -76,5 +78,7 @@ where, $VARIABLE = **mean, median, range, stddev, variance**.
 
 ![](/images/indi3.png)
 
-More features will be added...
+
+
+**More features will be added...**
 
