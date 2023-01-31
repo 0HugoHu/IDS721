@@ -47,9 +47,10 @@ In this Demo, I learned how to use Amazon Lambda to deploy a cloud function. The
 
 ![](/images/demo2.png)
 
-
+#
 
 # Individual Project 1 Demo
+
 ## Introduction
 
 This project aims to provide a CLI tool in data engineering, specifically, calcualte the statistics from worldwide ciry altitudes. 
