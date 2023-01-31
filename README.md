@@ -46,3 +46,35 @@ In this Demo, I learned how to use Amazon Lambda to deploy a cloud function. The
 > 
 
 ![](/images/demo2.png)
+
+# Individual Project 1 Demo
+## Introduction
+
+This project aims to provide a CLI tool in data engineering, specifically, calcualte the statistics from worldwide ciry altitudes. 
+
+## Usage
+> git clone https://github.com/0HugoHu/IDS721.git
+> 
+> nohup cargo run all // enable background process
+> 
+
+The formats are:
+
+**http://3.232.64.14/alt/$ALTITUDE**
+
+where, $ALTITUDE = **numerical numbers** (e.g., 172.2, -25)
+
+OR
+
+**http://3.232.64.14/sta/$VARIABLE**
+
+where, $VARIABLE = **mean, median, range, stddev, variance**.
+
+![](/images/indi1.png)
+
+![](/images/indi2.png)
+
+![](/images/indi3.png)
+
+More features will be added...
+
