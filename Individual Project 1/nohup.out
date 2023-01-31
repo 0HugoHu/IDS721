@@ -1,0 +1,47 @@
+warning: unused variable: `why`
+  --> src/main.rs:44:17
+   |
+44 |             Err(why) => {}
+   |                 ^^^ help: if this is intentional, prefix it with an underscore: `_why`
+   |
+   = note: `#[warn(unused_variables)]` on by default
+
+warning: value assigned to `result` is never read
+  --> src/main.rs:76:13
+   |
+76 |     let mut result = String::new();
+   |             ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+   = note: `#[warn(unused_assignments)]` on by default
+
+warning: unused variable: `why`
+  --> src/main.rs:80:17
+   |
+80 |             Err(why) => {}
+   |                 ^^^ help: if this is intentional, prefix it with an underscore: `_why`
+
+warning: value assigned to `median` is never read
+   --> src/main.rs:108:21
+    |
+108 |             let mut median : f32 = 0.0;
+    |                     ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: field `index` is never read
+ --> src/main.rs:8:5
+  |
+7 | struct Data {
+  |        ---- field in this struct
+8 |     index: i32,
+  |     ^^^^^
+  |
+  = note: `Data` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+  = note: `#[warn(dead_code)]` on by default
+
+warning: `city_by_altitude` (bin "city_by_altitude") generated 5 warnings
+    Finished dev [unoptimized + debuginfo] target(s) in 3.76s
+     Running `target/debug/city_by_altitude`
+thread 'actix-rt|system:0|arbiter:0' panicked at ': Error(Io(Os { code: 2, kind: NotFound, message: "No such file or directory" }))', src/main.rs:42:23
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace

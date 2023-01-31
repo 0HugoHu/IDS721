@@ -23,10 +23,10 @@ async fn index() -> impl Responder {
 #[get("/alt/{a}")]
 async fn run(info: web::Path<String>) -> impl Responder {
     let info = info.into_inner();
-    let al = info.parse::<f32>().unwrap();
+    let al = info.parse::<f32>().unwrap()
 
     // Obtain data and compare with given altitude
-    let rdr = csv::Reader::from_path("WorldCityLocations/World_Cities_Location_table.csv");
+    let rdr = csv::Reader::from_path("../Week1/WorldCityLocations/World_Cities_Location_table.csv");
     let mut diff = f32::MAX;
     let mut res = Data {
         index: 0,
