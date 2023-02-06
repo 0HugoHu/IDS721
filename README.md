@@ -47,7 +47,34 @@ In this Demo, I learned how to use Amazon Lambda to deploy a cloud function. The
 
 ![](/images/demo2.png)
 
-#
+<br />
+
+# Week 3 Demo
+## Introduction
+
+In this Demo, user gives the saturation value she wants to adjust, and the program generate a new image with expected saturation named 'rust_logo_new.png'
+
+## Feature
+- **Use "image" library for image processing**
+
+## Usage
+> git clone https://github.com/0HugoHu/IDS721.git
+> 
+> cd Week3
+>
+> cargo run all 64 // Any value between 0-255
+> 
+
+<br />
+For example:
+
+
+|Source Image|Output Image|
+|---|---|
+|![](/Week3/rust_logo.png)|![](/Week3/rust_logo_new.png)|
+
+
+<br />
 
 # Individual Project 1 Demo
 
