@@ -106,7 +106,30 @@ where, $VARIABLE = **mean, median, range, stddev, variance**.
 
 ![](/images/indi3.png)
 
+OR
 
+**http://3.232.64.14/figure/$PLACEHOLDER**
 
-**More features will be added...**
+where, $PLACEHOLDER = **Anything but empty**.
+
+![](/images/indi4.png)
+
+<br />
+
+**More to say...**
+
+In week 3's work, I planned to show the world's city's altitude with its frequency. I tried:
+
+- **Draw a figure directly on the front-end.** But I didn't want anymore dependencies, and realized that I should focus on Rust and its middleware, so I changed my plan.
+- **Send plain text as HttpResponse.** I even found a nice repository, named: textplots-rs (https://github.com/loony-bean/textplots-rs), which generates dot-based char figure from given expressions. But then I found some of these characters were in Unicode coding, and they could not be displayed properly on web page. Then I switched to:
+- **Send picture instead of text.** However, I messed up my mind on how to do with Rust syntax. I found all code online not working for me.
+- **Send html page including a img tag.** This worked as html could be return simply as content_type("text/html").body(html). But I didn't know the absolute path of my image, and I tried all possible ways but still failed.
+- **Send html page including pure text-expression of the figure.** This way appearently worked, but the problem was again the Unicode coding. Finally I found the solution: adding "charset=UTF-8" into the content_type.
+
+So, it looks like I did just a few work this week, but I did spend a lot of time on it.
+
+Example of using testplots-rs library:
+![](/images/indi5.png)
+
+<br />
 
