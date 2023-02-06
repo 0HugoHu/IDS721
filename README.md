@@ -126,7 +126,7 @@ In week 3's work, I planned to show the world's city's altitude with its frequen
 - **Send html page including a img tag.** This worked as html could be return simply as content_type("text/html").body(html). But I didn't know the absolute path of my image, and I tried all possible ways but still failed.
 - **Send html page including pure text-expression of the figure.** This way appearently worked, but the problem was again the Unicode coding. Finally I found the solution: adding "charset=UTF-8" into the content_type.
 
-So, it looks like I did just a few work this week, but I did spend a lot of time on it.
+So, it looks like I did just a few work this week, but I did spend a lot of time on it (also fixed some bad data in database).
 
 Example of using testplots-rs library:
 ![](/images/indi5.png)
