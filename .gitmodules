@@ -1,3 +1,6 @@
 [submodule "WorldCityLocations"]
 	path = Week1/WorldCityLocations
 	url = https://github.com/0HugoHu/WorldCityLocations
+[submodule "Individual Project 1/textplots-rs"]
+	path = Individual Project 1/textplots-rs
+	url = https://github.com/loony-bean/textplots-rs

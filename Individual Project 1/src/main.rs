@@ -1,7 +1,14 @@
 // Find city by altitude
-use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
+use actix_web::{get, web, App, HttpResponse, HttpServer, Responder, HttpRequest, Result};
+
+use actix_web::http::{header, Method, StatusCode};
+
+use actix_files::NamedFile;
 
 use serde::Deserialize;
+
+use std::{env, io};
+
 
 #[derive(Debug, Clone, Deserialize)]
 struct Data {
@@ -149,10 +156,106 @@ async fn cal_statistics(info: web::Path<String>) -> impl Responder {
     HttpResponse::Ok().body(result)
 }
 
+
+// // Generate graph
+// #[get("/figure/{a}")]
+// async fn return_figure(info: web::Path<String>) -> Result<HttpResponse> {
+
+//     // Y = a + b·X + c·X2 + d·X3 + e·X4
+//     // a = 3060.38628172611
+//     // b = -511.724627659983
+//     // c = 29.7645556966008
+//     // d = -0.713129242306818
+//     // e = 0.00600206802860897
+    
+//     // 3060 + -511.7246·X + 29.7645 + -0.7131·X3 + 0.006·X4
+
+//     let mut result = String::new();
+//     result = format!("
+    //                                                 Wrold's City Attitude Frequency
+    //                               y = 3060 + -511.7246*x + 29.7645*x^2 + -0.7131*x^3 + 0.006*x^4
+    // ⣣                                                                                                                     3060 cities
+    // ⠌⢆
+    // ⠂⠈⢆
+    // ⡁ ⠈⢆
+    // ⠄  ⠈⢆
+    // ⠂   ⠈⢆
+    // ⡁     ⢣
+    // ⠄      ⠱⡀
+    // ⠂       ⠘⢄
+    // ⡁         ⠱⡀
+    // ⠄          ⠈⠢⡀
+    // ⠂            ⠈⠢⣀
+    // ⡁               ⠑⠤⡀
+    // ⠄                 ⠈⠑⠢⢄⣀
+    // ⡂⢀ ⡀⢀ ⡀⢀ ⡀⢀ ⡀⢀ ⡀⢀ ⡀⢀⢉⢉⢉⠉⡑⢒⠢⡤⢤⢄⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⢤⠤⡤⢤⠤⡤⢒⠒⡒⢒⠒⡒⢒⠊⡉⢉⠉⡉⢉⠉⡉⢉⠉⡉⢒⠒⡒⢒⠒⡒⢢⠤⡤⢤⠤⣄⣀⣀⣀⣀⡀⡀⢀ ⡀⢀ ⡀⢀ ⡀
+    // ⠁                                                                               ⠈⠉⠉⠉⠉⠉⠉⠉⠉⠉
+    // 0                         1000                           2000                           3000                           4000 m"
+//     ).to_string();
+
+
+//     let image_content = web::block(|| std::fs::read("/generated_figure.png".to_string())).await;
+//     // let image_content =  actix_web::web::Bytes::from(std::fs::read("/generated_figure.png".to_string()));
+//     // Ok(HttpResponse::build(StatusCode::OK)
+//     // .content_type("image/jpeg")
+//     // .body(actix_web::dev::AnyBody::Bytes(image_content)))
+
+    
+//     // HttpResponse::Ok()
+//     //                 .content_type("image/jpeg")
+//     //                 .body(image_content)
+
+//     HttpResponse::Ok(NamedFile::open("/generated_figure.png"))
+
+//     // let file = actix_files::NamedFile::open_async("/generated_figure.png").await.unwrap();
+
+//     // file.into_response()
+
+// }
+
+// Generate graph
+#[get("/figure/{a}")]
+async fn return_html() -> HttpResponse {
+
+    let html = r#"
+        <html>
+            <head>
+                <title>My Page</title>
+            </head>
+            <body>
+                <div> 
+&nbsp;&nbsp;&nbsp;&nbsp;Wrold's City Attitude Frequency<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;=&nbsp;3060&nbsp;+&nbsp;-511.7246*x&nbsp;+&nbsp;29.7645*x^2&nbsp;+&nbsp;-0.7131*x^3&nbsp;+&nbsp;0.006*x^4<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;⣣&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3060&nbsp;cities<br>
+&nbsp;&nbsp;&nbsp;&nbsp;⠌⢆<br>
+&nbsp;&nbsp;&nbsp;&nbsp;⠂⠈⢆<br>
+&nbsp;&nbsp;&nbsp;&nbsp;⡁&nbsp;⠈⢆<br>
+&nbsp;&nbsp;&nbsp;&nbsp;⠄&nbsp;&nbsp;⠈⢆<br>
+&nbsp;&nbsp;&nbsp;&nbsp;⠂&nbsp;&nbsp;&nbsp;⠈⢆<br>
+&nbsp;&nbsp;&nbsp;&nbsp;⡁&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⢣<br>
+&nbsp;&nbsp;&nbsp;&nbsp;⠄&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⠱⡀<br>
+&nbsp;&nbsp;&nbsp;&nbsp;⠂&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⠘⢄<br>
+&nbsp;&nbsp;&nbsp;&nbsp;⡁&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⠱⡀<br>
+&nbsp;&nbsp;&nbsp;&nbsp;⠄&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⠈⠢⡀<br>
+&nbsp;&nbsp;&nbsp;&nbsp;⠂&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⠈⠢⣀<br>
+&nbsp;&nbsp;&nbsp;&nbsp;⡁&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⠑⠤⡀<br>
+&nbsp;&nbsp;&nbsp;&nbsp;⠄&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⠈⠑⠢⢄⣀<br>
+&nbsp;&nbsp;&nbsp;&nbsp;⡂⢀&nbsp;⡀⢀&nbsp;⡀⢀&nbsp;⡀⢀&nbsp;⡀⢀&nbsp;⡀⢀&nbsp;⡀⢀⢉⢉⢉⠉⡑⢒⠢⡤⢤⢄⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⢤⠤⡤⢤⠤⡤⢒⠒⡒⢒⠒⡒⢒⠊⡉⢉⠉⡉⢉⠉⡉⢉⠉⡉⢒⠒⡒⢒⠒⡒⢢⠤⡤⢤⠤⣄⣀⣀⣀⣀⡀⡀⢀&nbsp;⡀⢀&nbsp;⡀⢀&nbsp;⡀<br>
+&nbsp;&nbsp;&nbsp;&nbsp;⠁&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⠈⠉⠉⠉⠉⠉⠉⠉⠉⠉<br>
+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4000&nbsp;m<br>
+                </div>
+            </body>
+        </html>
+    "#;
+
+    HttpResponse::Ok().content_type("text/html; charset=UTF-8").body(html)
+}
+
 // Main function
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| App::new().service(index).service(run).service(cal_statistics))
+    HttpServer::new(|| App::new().service(index).service(run).service(cal_statistics).service(return_html))
+        // .resource("/figure", |r| r.f(return_html))
         .bind(("127.0.0.1", 8088))?
         .run()
         .await
