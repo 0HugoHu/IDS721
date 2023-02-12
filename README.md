@@ -73,6 +73,34 @@ For example:
 |---|---|
 |![](/Week3/rust_logo.png)|![](/Week3/rust_logo_new.png)|
 
+<br />
+
+# Week 4 Demo
+## Introduction
+
+In this Demo, user gives the path of file to be translated, and the target language they want. The program outputs the translated text. This demo is adapted from "A Hugging Face Translation Tool in Rust" by Noah Gift.
+
+## Feature
+- **Learned Rust NLP pipelines.**
+- **Learned Clap library for input arguments parsing.**
+
+## Usage
+> git clone https://github.com/0HugoHu/IDS721.git
+> 
+> cd Week4
+>
+> cargo run -- translate --path noah.txt italian
+> 
+
+<br />
+For example, the source English text:
+> Short Biography of Noah Gift: What currently keeps me busy is working as an Executive in Residence at the Duke MIDS (Data science) and Duke AI Product Management program and as a consultant and author in Cloud Computing, Big Data, DevOps, and MLOps. The following visual resume is a good idea to show the kinds of things I have worked on in my life.
+
+|Source Language|Target Language|Text|
+|---|---|---|
+|English|Chinese|![](/images/demo3_1.png)|
+|English|French|![](/images/demo3_2.png)|
+|English|Italian|![](/images/demo3_3.png)|
 
 <br />
 
