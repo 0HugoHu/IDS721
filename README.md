@@ -94,6 +94,7 @@ In this Demo, user gives the path of file to be translated, and the target langu
 
 <br />
 For example, the source English text:
+
 > Short Biography of Noah Gift: What currently keeps me busy is working as an Executive in Residence at the Duke MIDS (Data science) and Duke AI Product Management program and as a consultant and author in Cloud Computing, Big Data, DevOps, and MLOps. The following visual resume is a good idea to show the kinds of things I have worked on in my life.
 
 |Source Language|Target Language|Text|
