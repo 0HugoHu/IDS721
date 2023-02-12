@@ -89,7 +89,9 @@ In this Demo, user gives the path of file to be translated, and the target langu
 > 
 > cd Week4
 >
-> cargo run -- translate --path noah.txt italian
+> cargo run -- translate --path noah.txt $TARGET_LANGUAGE
+> 
+> // where $TARGET_LANGUAGE = "spanish", "french", "german", "chinese", "italian", "portuguese"
 > 
 
 <br />
