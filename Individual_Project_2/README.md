@@ -22,7 +22,25 @@ EXPOSE 8080
 CMD ["hugoweather"]
 ```
 
-### 2. Local Deployment
+### 2. Configure OpenWeather API
+
+Though I keeped my api_key in the code, please **DO NOT USE IT!**
+
+Register your account, and get your own **FREE** api_key [here](https://openweathermap.org/).
+
+**Replace** "url2" in lib.rs with your own's:
+```rust
+// Get response from weather api
+async fn get_response(location: &str) -> JsonValue {
+    let url1 = "http://api.openweathermap.org/data/2.5/weather?q=";
+    let url2 = "&appid=1f565f89dbe934dc5916a2cc3f943d76"; // Replace this
+    let url = [url1, location, url2].concat();
+    let resp = reqwest::get(&url).await.unwrap().text().await.unwrap();
+    json::parse(&resp).unwrap()
+}
+```
+
+### 3. Local Deployment
 **Build** docker image and run it:
 
 ```bash
