@@ -84,7 +84,7 @@ aws configure
 ```
 
 **Retrieve** an authentication token and authenticate your Docker client to your registry.
-```
+```bash
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin YOUR_ECR_ID.dkr.ecr.us-east-1.amazonaws.com
 # replace YOUR_ECR_ID with your image url
 ```
