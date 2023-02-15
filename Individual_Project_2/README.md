@@ -51,7 +51,10 @@ docker run -it --rm -p 8080:8080 hugoweather
 **Open** your broswer and visit: http://127.0.0.1:8080/
 
 You are expected to see this welcome page:
-![]()
+
+![](../images/indi2_3.png)
+
+![](../images/indi2_4.png)
 
 </br>
 
@@ -98,6 +101,8 @@ docker push YOUR_ECR_ID.dkr.ecr.us-east-1.amazonaws.com/hugoweather:latest
 # replace YOUR_ECR_ID with your image url
 ```
 
+![](../images/indi2_1.png)
+
 </br>
 
 ## Publish to AWS App Runner
@@ -107,7 +112,6 @@ docker push YOUR_ECR_ID.dkr.ecr.us-east-1.amazonaws.com/hugoweather:latest
 **Select** the image you built, and choose **Auto Deploy**.
 
 **Wait** until health check is automatically completed.
-
 
 
 
