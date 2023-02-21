@@ -117,6 +117,10 @@ docker push YOUR_ECR_ID.dkr.ecr.us-east-1.amazonaws.com/hugoweather:latest
 
 ## Demo
 
+**Try demos with AWS App Runner Default Domain: https://erp7imdtkd.us-east-1.awsapprunner.com/**
+
+**Your broswer will automatically convert whitespace into "%20"**
+
 |**Query** real-time weather by city name|
 |---|
 |![](../images/indi2_%20(4).png)|
