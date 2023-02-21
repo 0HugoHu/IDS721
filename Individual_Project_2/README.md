@@ -1,7 +1,9 @@
 ## Introduction
 In this project 2, I will try to learn docker and possibly Kubernetes (K8S) for Rust-based microservice.
 
-This app parses user's input of a city name, and returns the real-time weather using OpenWeather API.
+This app parses user's input of a city name, and returns the real-time weather using OpenWeather API. 
+
+Now, it also achieves history 365-day AQI reports.
 
 ### 1. Containerized Actix Microservice
 
@@ -13,10 +15,7 @@ ENV APP hugoweather
 WORKDIR /usr/src/$APP
 COPY . .
 RUN cargo install --path .
- 
-FROM debian:buster-slim
-RUN apt-get update && rm -rf /var/lib/apt/lists/*
-COPY --from=builder /usr/local/cargo/bin/$APP /usr/local/bin/$APP
+
 #export this actix web service to port 8080 and 0.0.0.0
 EXPOSE 8080
 CMD ["hugoweather"]

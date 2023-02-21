@@ -8,7 +8,8 @@ D. /version that returns the version of the service
 
 use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 //import the parse result function from the lib.rs file
-use hugoweather::parse_result;
+use hugoweather::parse_weather_result;
+use hugoweather::parse_airquality_result;
 
 //create a function that returns a hello world
 #[get("/")]
@@ -16,13 +17,24 @@ async fn hello() -> impl Responder {
     HttpResponse::Ok().body("Welcome to Hugo Weather Site!")
 }
 
-//create a function that returns a random fruit
+//create a function that returns current weather
 #[get("/weather/{a}")]
 async fn weather(pos: web::Path<String>) -> impl Responder {
     // convert position to string
     let pos = pos.as_str();
     // return the result of the parse_result function
-    let result : String = parse_result(pos).await;
+    let result : String = parse_weather_result(pos).await;
+    println!("{}", result);
+    HttpResponse::Ok().body(result)
+}
+
+//create a function that returns past 365 days air quality
+#[get("/airquality/{a}")]
+async fn airquality(pos: web::Path<String>) -> impl Responder {
+    // convert position to string
+    let pos = pos.as_str();
+    // return the result of the parse_result function
+    let result : String = parse_airquality_result(pos).await;
     println!("{}", result);
     HttpResponse::Ok().body(result)
 }
@@ -49,6 +61,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .service(hello)
             .service(weather)
+            .service(airquality)
             .service(health)
             .service(version)
     })
