@@ -51,9 +51,8 @@ docker run -it --rm -p 8080:8080 hugoweather
 
 You are expected to see this welcome page:
 
-![](../images/indi2_3.png)
+![](../images/indi2_%20(2).png)
 
-![](../images/indi2_4.png)
 
 </br>
 
@@ -100,7 +99,7 @@ docker push YOUR_ECR_ID.dkr.ecr.us-east-1.amazonaws.com/hugoweather:latest
 # replace YOUR_ECR_ID with your image url
 ```
 
-![](../images/indi2_1.png)
+![](../images/indi2_%20(1).png)
 
 </br>
 
@@ -112,5 +111,18 @@ docker push YOUR_ECR_ID.dkr.ecr.us-east-1.amazonaws.com/hugoweather:latest
 
 **Wait** until health check is automatically completed.
 
+![](../images/indi2_%20(3).png)
 
+</br>
 
+## Demo
+
+|**Query** real-time weather by city name|
+|---|
+|![](../images/indi2_%20(4).png)|
+|![](../images/indi2_%20(5).png)|
+
+|**Query** historical 365-day AQI by city name|
+|---|
+|![](../images/indi2_%20(6).png)|
+|![](../images/indi2_%20(7).png)|
