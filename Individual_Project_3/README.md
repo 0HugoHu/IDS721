@@ -51,3 +51,39 @@ The output is:
 </br>
 
 ### 2. Use AWS S3
+
+#### 2.1. AWS S3 Creation
+
+The S3 bucket can be created directly from console.
+
+![](../images/indi3_%20(2).png)
+
+### 2.2. Import file
+
+By clicking the upload button, files can be uploaded.
+
+![](../images/indi3_%20(3).png)
+
+### 3. SageMaker Deploy
+
+In the field of data science, the SageMaker preferred a Jupyter Notebook-style launcher, and they only support Python or R. So I switched to Python3 for the training and visualization.
+
+The whole process consists of five steps:
+
+- **Importing Modules**
+- **Data Preprocessing**
+- **Exploratory Data Analysis**
+- **Data Cleaning**
+- **Model Training**
+
+</br>
+
+For the full result, please refer to this **[REPORT](Multiclass-Resume-Classifier.ipynb)**
+
+![](../images/indi3_%20(4).png)
+
+<ins>
+I figured out that Amazon SageMaker even with <b>4vCPU and 64GB-RAM</b> is so slow in data processing step compared to my own laptop. So I switched to my local Jupyter Notebook for the following training.
+</ins>
+
+
