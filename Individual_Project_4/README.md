@@ -52,3 +52,5 @@ Finally I called this lambda function in the AWS Shell, the output returns a sta
 
 ![](../images/indi4%20(1).png)
 
+![](../images/indi4%20(4).png)
+
