@@ -13,5 +13,5 @@ cargo run all
 ```
 
 
-![](../images/demo10%20.png)
+![](../images/demo10.png)
 
