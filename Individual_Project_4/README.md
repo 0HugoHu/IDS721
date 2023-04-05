@@ -64,13 +64,13 @@ In this second week, I learned how to add a event triger to the AWS DynamoDB.
 
 That once the DynamoDB adds, updates, and deletes items to the table, DynamoDB writes records of these actions to the stream.
 
-<img src="../images/indi4 (6).png"  width="75%">
+<img src="../images/indi4 (6).png"  width="100%">
 
 AWS Lambda then polls the stream and when it detects updates to the stream, it invokes the Lambda function by passing in the event data it finds in the stream.
 
 The function runs and creates logs in Amazon CloudWatch. It is verified the logs reported in the Amazon CloudWatch console.
 
-<img src="../images/indi4 (7).png"  width="75%">
+<img src="../images/indi4 (7).png"  width="100%">
 
 
 
