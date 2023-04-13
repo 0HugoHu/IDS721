@@ -73,4 +73,121 @@ The function runs and creates logs in Amazon CloudWatch. It is verified the logs
 <img src="../images/indi4 (7).png"  width="100%">
 
 
+## Week 11
+
+This week, I completed the workflow above.
+
+Firstly, I setup an Amazon EventBridge, that invokes the ```updateTable``` lambda 1 time per minute.
+
+<img src="../images/indi4_4.png"  width="100%">
+
+Then, I create implemented the ```updateTable``` lambda function:
+
+```js
+// Import the required AWS SDK clients
+const AWS = require('aws-sdk');
+const dynamoDB = new AWS.DynamoDB.DocumentClient();
+
+// Define the name of the DynamoDB table
+const tableName = "lambda-dynamodb-stream";
+
+exports.handler = async (event, context) => {
+  try {
+    // Define the item to be put into the table
+    const item = {
+      id: 'TEST ' + Math.floor(Math.random() * 1000)
+    };
+
+    // Define the DynamoDB put parameters
+    const params = {
+      TableName: tableName,
+      Item: item
+    };
+
+    // Put the item into the DynamoDB table
+    await dynamoDB.put(params).promise();
+
+    // Return a successful response
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: 'Item added to the table successfully.' })
+    };
+  } catch (error) {
+    console.error(`Error putting item into table: ${error.message}`);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Error putting item into table.' })
+    };
+  }
+};
+```
+
+It tries to **insert** a random id into the table in ```DynamoDB``` database.
+
+<img src="../images/indi4_5.png"  width="100%">
+
+<img src="../images/indi4_3.png"  width="100%">
+
+Thirdly, with the implementations from past two weeks, whenever the database changes, it outputs a stream to another lambda function ```ProcessDynamoDBRecords```, which then write the records to the ```S3 Bucket```.
+
+```js
+console.log('Loading function');
+
+const AWS = require('aws-sdk');
+const s3 = new AWS.S3();
+
+exports.handler = async (event, context) => {
+	console.log(JSON.stringify(event, null, 2));
+    event.Records.forEach(function(record) {
+        console.log(record.eventID);
+        console.log(record.eventName);
+        console.log('DynamoDB Record: %j', record.dynamodb);
+    });
+	  
+	    
+  try {
+    // Set the bucket name and an object key using the current timestamp
+    const bucketName = 'dynamo-bucket-s3'; // Replace with your S3 bucket name
+    const objectKey = `request-${Date.now()}.json`;
+
+    // Prepare the S3 putObject parameters
+    const params = {
+      Bucket: bucketName,
+      Key: objectKey,
+      Body: JSON.stringify(event),
+      ContentType: 'application/json',
+    };
+
+    // Upload the JSON event data to S3
+    await s3.putObject(params).promise();
+
+    // Return a successful response
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        message: 'Request saved to S3 successfully.',
+        objectKey: objectKey,
+      }),
+    };
+  } catch (error) {
+    // Log the error and return an error response
+    console.error('Error saving request to S3:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        message: 'An error occurred while saving the request to S3.',
+        error: error.message,
+      }),
+    };
+  }
+};
+```
+<img src="../images/indi4_6.png"  width="100%">
+
+Finally, we can observe the output file in ```S3 Bucket```.
+
+<img src="../images/indi4_2.png"  width="100%">
+
+
+
 
